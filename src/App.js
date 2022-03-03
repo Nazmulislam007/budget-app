@@ -4,9 +4,11 @@ import AddBudgetModel from "./components/AddBudgetModel";
 import BudgetCart from "./components/BudgetCart";
 import { useBudget } from "./Context/BudgetContext";
 import "./App.css";
+import AddExpenseModal from "./components/AddExpenseModal";
 
 function App() {
-  const [showModal, setShowModal] = useState(false);
+  const [showBudgetModal, setShowBudgetModal] = useState(false);
+  const [showExpenseModal, setShowExpenseModal] = useState(false);
   const { budgets, getBudgetExpenses } = useBudget();
 
   return (
@@ -14,10 +16,15 @@ function App() {
       <Container className="my-4">
         <Stack direction="horizontal" gap="2" className="mb-4">
           <h1 className="me-auto">Budgets</h1>
-          <Button variant="primary" onClick={() => setShowModal(true)}>
+          <Button variant="primary" onClick={() => setShowBudgetModal(true)}>
             Add Budget
           </Button>
-          <Button variant="outline-primary">Add Expense</Button>
+          <Button
+            variant="outline-primary"
+            onClick={() => setShowExpenseModal(true)}
+          >
+            Add Expense
+          </Button>
         </Stack>
         <div className="main">
           {budgets.map((budget) => {
@@ -38,8 +45,12 @@ function App() {
         </div>
       </Container>
       <AddBudgetModel
-        show={showModal}
-        handleClose={() => setShowModal(false)}
+        show={showBudgetModal}
+        handleClose={() => setShowBudgetModal(false)}
+      />
+      <AddExpenseModal
+        show={showExpenseModal}
+        handleClose={() => setShowExpenseModal(false)}
       />
     </>
   );

@@ -17,8 +17,6 @@ const BudgetCart = ({ name, amount, max, gray }) => {
     classNames.push("bg-light");
   }
 
-  console.log(classNames);
-
   return (
     <Card className={classNames.join(" ")}>
       <Card.Body>
