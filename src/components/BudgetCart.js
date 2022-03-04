@@ -9,7 +9,7 @@ function getProgressBarVariant(amount, max) {
   return "danger";
 }
 
-const BudgetCart = ({ name, amount, max, gray }) => {
+const BudgetCart = ({ name, amount, max, gray, onAddExpenseClick }) => {
   const classNames = [];
   if (amount > max) {
     classNames.push("bg-danger", "bg-opacity-10");
@@ -23,21 +23,29 @@ const BudgetCart = ({ name, amount, max, gray }) => {
         <Card.Title className="d-flex justify-content-between align-items-baseline fw-normal mb-3">
           <div className="me-2">{name}</div>
           <div className="d-flex align-items-baseline">
-            {currencyFormatter.format(amount)} /{" "}
-            <span className="text-muted fs-6 ms-1">
-              {currencyFormatter.format(max)}
-            </span>
+            {currencyFormatter.format(amount)}
+            {max && (
+              <span className="text-muted fs-6 ms-1">
+                / {currencyFormatter.format(max)}
+              </span>
+            )}
           </div>
         </Card.Title>
-        <ProgressBar
-          className="rounded-pill"
-          variant={getProgressBarVariant(amount, max)}
-          max={max}
-          now={amount}
-          min={0}
-        />
+        {max && (
+          <ProgressBar
+            className="rounded-pill"
+            variant={getProgressBarVariant(amount, max)}
+            max={max}
+            now={amount}
+            min={0}
+          />
+        )}
         <Stack direction="horizontal" gap="2" className="mt-4">
-          <Button variant="outline-primary" className="ms-auto">
+          <Button
+            variant="outline-primary"
+            onClick={onAddExpenseClick}
+            className="ms-auto"
+          >
             Add Expense
           </Button>
           <Button variant="outline-secondary">View Expenses</Button>
